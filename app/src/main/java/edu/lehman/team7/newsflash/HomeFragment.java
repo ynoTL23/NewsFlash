@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ public class HomeFragment extends Fragment {
   private SwipeRefreshLayout swipeRefresh;
   private ArrayList<ArticleItem> articlesList;
   private ArticleAdapter articleAdapter;
+  private SearchView searchView;
 
   @Nullable
   @Override
@@ -35,12 +37,39 @@ public class HomeFragment extends Fragment {
 
     initializeArticlesData();
 
+    searchView = getActivity().findViewById(R.id.btnSearchView);
+    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+      @Override
+      public boolean onQueryTextSubmit(String query) {
+        findArticles(query);
+        return false;
+      }
+
+      @Override
+      public boolean onQueryTextChange(String newText) {
+        return false;
+      }
+    });
+
+    searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+      @Override
+      public boolean onClose() {
+        initializeArticlesData();
+        return false;
+      }
+    });
+
     // when swiping to refresh
     swipeRefresh = view.findViewById(R.id.swipeRefreshLayout);
     swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
       public void onRefresh() {
-        initializeArticlesData();
+        if (searchView.getQuery().toString().isEmpty()) {
+          initializeArticlesData();
+        } else {
+          findArticles(searchView.getQuery().toString());
+        }
+
         if (swipeRefresh.isRefreshing()) {
           swipeRefresh.setRefreshing(false);
         }
@@ -53,27 +82,18 @@ public class HomeFragment extends Fragment {
   private void initializeArticlesData() {
     // What should this do?
 
-    // 1 Make a call to the api and store the response
-    // fetchAPI() or whatever
-
     // clear any existing data
     articlesList.clear();
 
-    // 2 Extract the data into the articles arraylist
-    //   - Data includes title, desc, author, etc (Found in constructor of ArticleItem.java
-    // 3 For each article, create a new ArticleItem() and add it to the arraylist
-    articlesList.add(new ArticleItem("Coronavirus US live: White House cancels briefing amid concerns over Trump remarks", "Coronavirus task force briefing originally scheduled for 5pm ET called off following Trump's suggestion last week that virus be treated with disinfectant"));
-    articlesList.add(new ArticleItem("THIS IS A CUSTOM TITLE FOR THE ARTICLE", "This is the description for the article."));
-    articlesList.add(new ArticleItem("Lorem ipsum dolor sit amet, consectetur adipiscing elit", "Integer augue ipsum, suscipit eget eros vitae, maximus pharetra odio. Vivamus eget nisi dapibus, vestibulum mauris a, aliquam dui."));
-    articlesList.add(new ArticleItem());
-    articlesList.add(new ArticleItem());
-    articlesList.add(new ArticleItem("THIS IS A CUSTOM TITLE FOR THE ARTICLE", "This is the description for the article."));
-    articlesList.add(new ArticleItem("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque auctor elit nec dignissim semper.", "Nunc sit amet efficitur justo, in gravida tellus. Vivamus eu iaculis leo, in malesuada velit. Suspendisse ut arcu tortor. Maecenas commodo vel mauris at interdum. Morbi arcu mi, ultricies vitae mi in, imperdiet laoreet nulla. Integer quis turpis quis odio hendrerit consectetur et vel elit."));
-    articlesList.add(new ArticleItem());
-    articlesList.add(new ArticleItem("Coronavirus US live: White House cancels briefing amid concerns over Trump remarks", "Coronavirus task force briefing originally scheduled for 5pm ET called off following Trump's suggestion last week that virus be treated with disinfectant"));
-    articlesList.add(new ArticleItem("THIS IS A CUSTOM TITLE FOR THE ARTICLE", "This is the description for the article."));
+    // 1 Make a call to the api and store the response
+    // fetchAPI() or whatever
 
-    // notify and update the view
-    articleAdapter.notifyDataSetChanged();
+    new FetchNews(articlesList, articleAdapter).execute("top-headlines", "");
+  }
+
+  private void findArticles(String search)
+  {
+    articlesList.clear();
+    new FetchNews(articlesList, articleAdapter).execute("everything", search);
   }
 }
