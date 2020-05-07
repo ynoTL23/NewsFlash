@@ -27,7 +27,7 @@ public class HomeFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-    RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+    final RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     articlesList = new ArrayList<>();
@@ -80,20 +80,19 @@ public class HomeFragment extends Fragment {
   }
 
   private void initializeArticlesData() {
-    // What should this do?
-
     // clear any existing data
-    articlesList.clear();
-
-    // 1 Make a call to the api and store the response
-    // fetchAPI() or whatever
-
+    clearList();
     new FetchNews(articlesList, articleAdapter).execute("top-headlines", "");
   }
 
   private void findArticles(String search)
   {
-    articlesList.clear();
+    clearList();
     new FetchNews(articlesList, articleAdapter).execute("everything", search);
+  }
+
+  private void clearList() {
+    articlesList.clear();
+    articleAdapter.notifyDataSetChanged();
   }
 }
