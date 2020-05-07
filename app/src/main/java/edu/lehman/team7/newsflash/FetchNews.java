@@ -34,7 +34,7 @@ public class FetchNews extends AsyncTask<String, Void, String> {
             JSONArray itemsArray = jsonObject.getJSONArray("articles");
 
             String result = "";
-            String headline = "", description = "", author = "", articleURL = "", imgURL = "";
+            String headline = "", description = "", author = "", articleURL = "", imgURL = "", content = "";
 
             for (int i = 0; i < itemsArray.length(); i++) {
                 JSONObject article = itemsArray.getJSONObject(i);
@@ -43,9 +43,10 @@ public class FetchNews extends AsyncTask<String, Void, String> {
                 author = article.getString("author");
                 articleURL = article.getString("url");
                 imgURL= article.getString("urlToImage");
+                content= article.getString("content");
                 if (description == "null") description = "";
 
-                articlesList.get().add(new ArticleItem(headline, description, author, articleURL, imgURL));
+                articlesList.get().add(new ArticleItem(headline, description, author, articleURL, imgURL, content));
             }
 
             if (articlesList.get().isEmpty()) { //No results
