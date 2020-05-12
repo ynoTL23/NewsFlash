@@ -1,6 +1,7 @@
 package edu.lehman.team7.newsflash;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,8 +74,13 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
       ArticleItem currentArticle = articlesList.get(getAdapterPosition());
 
       // when tapping an article, open detailed view.
-      // Intent intent = xyz
-      Toast.makeText(articleContext, "You tapped: " + currentArticle.getArticleTitle(), Toast.LENGTH_SHORT).show();
+//      Toast.makeText(articleContext, "You tapped: " + currentArticle.getArticleTitle(), Toast.LENGTH_SHORT).show();
+      Intent detailedIntent = new Intent(articleContext, DetailedView.class);
+      detailedIntent.putExtra("headline", currentArticle.getArticleTitle());
+      detailedIntent.putExtra("author", currentArticle.getArticleAuthor());
+      detailedIntent.putExtra("content", currentArticle.getContent());
+      detailedIntent.putExtra("img", currentArticle.getImgUrl());
+      articleContext.startActivity(detailedIntent);
     }
   }
 }

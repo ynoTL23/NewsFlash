@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="25dp"
+    android:orientation="vertical"
+    android:padding="6dp"
+    tools:context=".DetailedView">
+
+    <ImageView
+        android:id="@+id/detailed_view_img"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:contentDescription="Article Image"
+        android:src="@android:color/darker_gray"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/detailed_view_title"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Article Headline"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detailed_view_img" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_favorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:onClick="favoriteArticle"
+        android:src="@drawable/ic_nav_star"
+        app:fabSize="mini"
+        app:layout_constraintLeft_toRightOf="@id/detailed_view_title"
+        app:layout_constraintRight_toLeftOf="@id/fab_share"
+        app:layout_constraintTop_toBottomOf="@id/detailed_view_img" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:onClick="shareArticle"
+        android:src="@drawable/ic_share"
+        app:fabSize="mini"
+        app:layout_constraintLeft_toRightOf="@id/fab_favorites"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detailed_view_img" />
+
+    <TextView
+        android:id="@+id/detailed_view_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Article Author"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detailed_view_title" />
+
+    <TextView
+        android:id="@+id/detailed_view_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet suscipit mi, a aliquet lorem. Fusce erat ante, elementum et rhoncus sed, tempor eget neque. Phasellus sed arcu varius sem molestie fermentum vitae ornare leo. Cras posuere pulvinar ultrices. Sed facilisis justo urna, at mattis lectus consectetur quis. Vestibulum eu ante eu nibh eleifend ultricies eu eu ipsum. Donec auctor, eros non aliquet placerat, mauris massa lacinia metus, quis commodo lectus lacus non sapien."
+        android:textColor="@android:color/black"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detailed_view_author" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
