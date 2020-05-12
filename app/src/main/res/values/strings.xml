@@ -1,6 +1,6 @@
 <resources>
-  <string name="app_name">NewsFlash</string>
-  <string name="open_drawer">openDrawer</string>
-  <string name="close_drawer">closeDrawer</string>
-  <string name="nav_header_desc">NewsFlash Logo Banner</string>
+    <string name="app_name">NewsFlash</string>
+    <string name="open_drawer">openDrawer</string>
+    <string name="close_drawer">closeDrawer</string>
+    <string name="nav_header_desc">NewsFlash Logo Banner</string>
 </resources>
