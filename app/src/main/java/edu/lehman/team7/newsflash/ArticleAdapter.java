@@ -48,14 +48,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
   public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    private CardView mCardView;
     private TextView mTextViewTitle, mTextViewDesc;
 
     public ViewHolder(View itemView) {
       super(itemView);
 
       // init views
-      mCardView = itemView.findViewById(R.id.card_container);
       mTextViewTitle = itemView.findViewById(R.id.articleTitle);
       mTextViewDesc = itemView.findViewById(R.id.articleDesc);
 
@@ -74,7 +72,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
       ArticleItem currentArticle = articlesList.get(getAdapterPosition());
 
       // when tapping an article, open detailed view.
-//      Toast.makeText(articleContext, "You tapped: " + currentArticle.getArticleTitle(), Toast.LENGTH_SHORT).show();
       Intent detailedIntent = new Intent(articleContext, DetailedView.class);
       detailedIntent.putExtra("headline", currentArticle.getArticleTitle());
       detailedIntent.putExtra("author", currentArticle.getArticleAuthor());

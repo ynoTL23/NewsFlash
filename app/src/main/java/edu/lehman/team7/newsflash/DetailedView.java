@@ -40,10 +40,9 @@ public class DetailedView extends AppCompatActivity {
 
         Intent shareIntent = Intent.createChooser(sendIntent, null);
         startActivity(shareIntent);
-
     }
 
     public void favoriteArticle(View view) {
-        Toast.makeText(this, "favorite", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "pressed favorite", Toast.LENGTH_SHORT).show();
     }
 }

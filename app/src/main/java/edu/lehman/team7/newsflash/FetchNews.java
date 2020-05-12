@@ -21,8 +21,7 @@ public class FetchNews extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... strings) {
-        String s = NetworkUtils.getHeadlines(strings[0], strings[1]);
-        return s;
+        return NetworkUtils.getHeadlines(strings[0], strings[1]);
     }
 
     @Override
@@ -44,7 +43,7 @@ public class FetchNews extends AsyncTask<String, Void, String> {
                 articleURL = article.getString("url");
                 imgURL= article.getString("urlToImage");
                 content= article.getString("content");
-                if (description == "null") description = "";
+                if (description.equals("null")) description = "";
 
                 articlesList.get().add(new ArticleItem(headline, description, author, articleURL, imgURL, content));
             }
