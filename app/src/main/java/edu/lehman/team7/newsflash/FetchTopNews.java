@@ -49,7 +49,7 @@ public class FetchTopNews  extends AsyncTask<String, Void, String> {
             String headline = "", description = "", author = "", articleURL = "", imgURL = "", content = "";
 
             if (itemsArray.length()>0){
-                JSONObject article = itemsArray.getJSONObject(itemsArray.length()-1);
+                JSONObject article = itemsArray.getJSONObject(0);
                 headline = article.getString("title");
                 description = article.getString("description");
                 author = article.getString("author");

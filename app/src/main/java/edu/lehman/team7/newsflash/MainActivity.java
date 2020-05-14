@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     long timeAtAppStart = System.currentTimeMillis();
     long tenSecondsInMillis = 1000 * 10;//actually about 2 mins
     long oneMinute = 1000 * 20;
-    alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,timeAtAppStart + tenSecondsInMillis, oneMinute *1, pendingIntent);
+    alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,timeAtAppStart + tenSecondsInMillis, oneMinute * 5, pendingIntent);
 
 
   }

@@ -19,7 +19,7 @@ public class NotificationBroadcast extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        new FetchTopNews(topArticle, context).execute("everything", null);
+        new FetchTopNews(topArticle, context).execute("top-headlines", "");
 
         if (topArticle!=null) {
             Log.i("Top article =", topArticle.toString());
