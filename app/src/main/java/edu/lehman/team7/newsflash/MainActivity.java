@@ -10,6 +10,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -29,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    createNotificationChannel();
 
     toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
@@ -50,6 +57,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     fragmentTransaction.commit();
 
     articleViewModel = ViewModelProviders.of(this).get(ArticleViewModel.class);
+
+    //Here and beyond until the end of onCreate is Notification
+
+    Intent intent = new Intent(MainActivity.this, NotificationBroadcast.class);
+    PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
+
+    AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+    long timeAtAppStart = System.currentTimeMillis();
+    long tenSecondsInMillis = 1000 * 10;//actually about 2 mins
+    long oneMinute = 1000 * 20;
+    alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,timeAtAppStart + tenSecondsInMillis, oneMinute *1, pendingIntent);
+
+
   }
 
   @Override
@@ -79,4 +99,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     return true;
   }
+
+  private void createNotificationChannel() {
+    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      CharSequence name = "LemubitReminderChannel";
+      String description = "Channel for Lemubit Reminder";
+      int importance = NotificationManager.IMPORTANCE_DEFAULT;
+      NotificationChannel channel = new NotificationChannel("notifyNewsFlash", name, importance);
+      channel.setDescription(description);
+
+      NotificationManager notificationManager = getSystemService(NotificationManager.class);
+      notificationManager.createNotificationChannel(channel);
+    }
+  }
+
 }
