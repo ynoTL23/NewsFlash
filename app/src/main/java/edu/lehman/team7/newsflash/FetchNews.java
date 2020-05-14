@@ -1,6 +1,7 @@
 package edu.lehman.team7.newsflash;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -30,6 +31,7 @@ public class FetchNews extends AsyncTask<String, Void, String> {
 
         try {
             JSONObject jsonObject = new JSONObject(s);
+            Log.i("fetchNews jsonObject = ", jsonObject.toString() );
             JSONArray itemsArray = jsonObject.getJSONArray("articles");
 
             String result = "";
