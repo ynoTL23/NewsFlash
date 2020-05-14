@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
   private NavigationView navigationView;
   private FragmentManager fragmentManager;
   private FragmentTransaction fragmentTransaction;
+  private ArticleViewModel articleViewModel;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     fragmentTransaction.add(R.id.frameLayout, new HomeFragment());
     fragmentTransaction.commit();
 
+    articleViewModel = ViewModelProviders.of(this).get(ArticleViewModel.class);
   }
 
   @Override
