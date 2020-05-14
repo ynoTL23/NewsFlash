@@ -46,6 +46,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     return this.articlesList.size();
   }
 
+  public ArticleItem getArticleAtPosition(int position){
+    return articlesList.get(position);
+  }
+
   public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private TextView mTextViewTitle, mTextViewDesc;
@@ -73,10 +77,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
       // when tapping an article, open detailed view.
       Intent detailedIntent = new Intent(articleContext, DetailedView.class);
-      detailedIntent.putExtra("headline", currentArticle.getArticleTitle());
-      detailedIntent.putExtra("author", currentArticle.getArticleAuthor());
-      detailedIntent.putExtra("content", currentArticle.getContent());
-      detailedIntent.putExtra("img", currentArticle.getImgUrl());
+      detailedIntent.putExtra("CurrentArticle", currentArticle);
       articleContext.startActivity(detailedIntent);
     }
   }
